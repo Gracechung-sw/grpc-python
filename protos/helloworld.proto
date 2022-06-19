@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {} // both the server and the client “stub” have a SayHello RPC method
+  // takes a HelloRequest parameter from the client and returns a HelloReply from the server
+
+  // Add new method in here like below.
+  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+
+  // response-streaming RPC
+  // Obtains the Features available within the given Rectangle.  Results are
+  // streamed rather than returned at once (e.g. in a response message with a
+  // repeated field), as the rectangle may cover a large area and contain a
+  // huge number of features.
+  rpc ListFeatures(Rectangle) returns (stream Feature) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+message Rectangle {
+    // One corner of the rectangle.
+    Point lo = 1;
+    // The other corner of the rectangle.
+    Point hi = 2;
+}
+
+message Feature {
+  // The name of the feature.
+  string name = 1;
+  // The point where the feature is detected.
+  Point location = 2;
+}
