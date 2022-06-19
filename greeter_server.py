@@ -9,10 +9,10 @@ import helloworld_pb2_grpc
 
 def read_route_guide_database():
     """Reads the route guide database.
-  Returns:
-    The full contents of the route guide database as a sequence of
-      helloworld_pb2.Features.
-  """
+    Returns:
+        The full contents of the route guide database as a sequence of
+        helloworld_pb2.Features.
+    """
     feature_list = []
     with open("route_guide_db.json") as route_guide_db_file:
         for item in json.load(route_guide_db_file):

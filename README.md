@@ -106,6 +106,29 @@ The Python implementation of the GRPC helloworld.Greeter server.
 - https://www.grpc.io/docs/guides/error/
 - https://github.com/avinassh/grpc-errors/tree/master/python
 
+## gRPC Testing
+
+- https://github.com/betandr/grpcdemo
+- https://www.vipmind.me/programing/python/write-unit-test-for-grpc-with-pytest-and-pytest-grpc.html
+- https://grpc.github.io/grpc/python/grpc_testing.html#
+- https://stackoverflow.com/questions/44718078/how-to-write-a-grpc-python-unittest
+- https://kibua20.tistory.com/226
+
+## Run unittest
+
+```bash
+$ python <your_test_cases.py>
+
+# or
+
+$ python3 -m unittest <your_test_cases.py>
+
+# or
+
+# test code discovery
+python -m unittest discover -s <project_directory> -p <"*_test.py" 파일명 Pattern>
+```
+
 ## Run
 
 Run the server:
