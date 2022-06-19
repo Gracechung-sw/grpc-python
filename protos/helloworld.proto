@@ -9,6 +9,10 @@ service Greeter {
   // Add new method in here like below.
   rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
 
+  // Strict version responds only to request which have 'Name' length
+  //les than 10 characters
+  rpc SayHelloStrict(HelloRequest) returns (HelloReply) {}
+
   // response-streaming RPC
   // Obtains the Features available within the given Rectangle.  Results are
   // streamed rather than returned at once (e.g. in a response message with a

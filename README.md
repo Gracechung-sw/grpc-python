@@ -101,6 +101,11 @@ The Python implementation of the GRPC helloworld.Greeter server.
 - https://developers.google.com/protocol-buffers/docs/reference/python-generated
 - https://grpc.io/docs/languages/python/basics/
 
+## gPRC Error handling
+
+- https://www.grpc.io/docs/guides/error/
+- https://github.com/avinassh/grpc-errors/tree/master/python
+
 ## Run
 
 Run the server:
@@ -119,7 +124,13 @@ Result
 
 ```
 Greeter client received: Hello, you!
+
 Greeter client received: Hello again, you!
+
+Length of `Name` cannot be more than 10 characters
+INVALID_ARGUMENT
+(3, 'invalid argument')
+
 Looking for features between 40, -75 and 42, -73
 Feature called Patriots Path, Mendham, NJ 07945, USA at latitude: 407838351
 longitude: -746143763

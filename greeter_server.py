@@ -41,6 +41,14 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
     def SayHelloAgain(self, request, context):
         return helloworld_pb2.HelloReply(message=f'Hello again, {request.name}!')
 
+    def SayHelloStrict(self, request, context):
+        if len(request.name) >= 10:
+            msg = 'Length of `Name` cannot be more than 10 characters'
+            context.set_details(msg)
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return helloworld_pb2.HelloReply()
+        return helloworld_pb2.HelloReply(message=f'Hello again, {request.name}!')
+
     def ListFeatures(self, request, context):
         left = min(request.lo.longitude, request.hi.longitude)
         right = max(request.lo.longitude, request.hi.longitude)

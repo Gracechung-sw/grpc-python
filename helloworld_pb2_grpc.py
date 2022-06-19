@@ -25,6 +25,11 @@ class GreeterStub(object):
                 request_serializer=helloworld__pb2.HelloRequest.SerializeToString,
                 response_deserializer=helloworld__pb2.HelloReply.FromString,
                 )
+        self.SayHelloStrict = channel.unary_unary(
+                '/Greeter/SayHelloStrict',
+                request_serializer=helloworld__pb2.HelloRequest.SerializeToString,
+                response_deserializer=helloworld__pb2.HelloReply.FromString,
+                )
         self.ListFeatures = channel.unary_stream(
                 '/Greeter/ListFeatures',
                 request_serializer=helloworld__pb2.Rectangle.SerializeToString,
@@ -52,6 +57,14 @@ class GreeterServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SayHelloStrict(self, request, context):
+        """Strict version responds only to request which have 'Name' length
+        les than 10 characters
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ListFeatures(self, request, context):
         """response-streaming RPC
         Obtains the Features available within the given Rectangle.  Results are
@@ -73,6 +86,11 @@ def add_GreeterServicer_to_server(servicer, server):
             ),
             'SayHelloAgain': grpc.unary_unary_rpc_method_handler(
                     servicer.SayHelloAgain,
+                    request_deserializer=helloworld__pb2.HelloRequest.FromString,
+                    response_serializer=helloworld__pb2.HelloReply.SerializeToString,
+            ),
+            'SayHelloStrict': grpc.unary_unary_rpc_method_handler(
+                    servicer.SayHelloStrict,
                     request_deserializer=helloworld__pb2.HelloRequest.FromString,
                     response_serializer=helloworld__pb2.HelloReply.SerializeToString,
             ),
@@ -121,6 +139,23 @@ class Greeter(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Greeter/SayHelloAgain',
+            helloworld__pb2.HelloRequest.SerializeToString,
+            helloworld__pb2.HelloReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SayHelloStrict(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Greeter/SayHelloStrict',
             helloworld__pb2.HelloRequest.SerializeToString,
             helloworld__pb2.HelloReply.FromString,
             options, channel_credentials,
