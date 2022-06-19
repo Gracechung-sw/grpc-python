@@ -75,11 +75,31 @@ This regenerates
   - a function for the service defined in helloworld.proto
     - `def add_GreeterServicer_to_server(servicer, server):`, which adds a RouteGuideServicer to a grpc.Server
 
+## [어쩌구]\_pb2_grpc.py code elements
+
+- https://grpc.io/docs/languages/python/generated-code/#code-elements
+
+three primary elements are generated:
+
+- `Stub`: `class GreeterStub(object):` **used by the client** to connect to a gRPC service. `stub = helloworld_pb2_grpc.GreeterStub(channel)`
+- `Servicer`: `class GreeterServicer(object):` **used by the server** to implement a gRPC service. `class Greeter(helloworld_pb2_grpc.GreeterServicer):`
+- `Registration` Function: `add_GreeterServicer_to_server` function used to register a servicer with a grpc.Server object.
+
+```python
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    helloworld_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
+    server.add_insecure_port('[::]:50051')
+    server.start()
+    server.wait_for_termination()
+```
+
 ## Use the Python gRPC API to write a simple client and server for your service.
 
 The Python implementation of the GRPC helloworld.Greeter server.
 
 - https://developers.google.com/protocol-buffers/docs/reference/python-generated
+- https://grpc.io/docs/languages/python/basics/
 
 ## Run
 
